@@ -10,8 +10,11 @@ const sumArray = (array, initalValue) => array.reduce(sumTwoNumbers, initalValue
 
 // void -> []
 function readTestData() {
-    return fs.readFileSync('data.txt').toString()
+    return fs
+        .readFileSync('data.txt')
+        .toString()
         .split(/\r?\n/)
+        .filter(Boolean)
         .map(toNumber);
 }
  
@@ -28,15 +31,10 @@ function part2() {
     var sum = 0;
     var freqs = new Set();
 
-    while (true){
-        for(let i = 1; i <= data.length; i++){
-            // if(i == data.length){
-            //     i = 0;
-            // }
-            const num = data[i];
-            sum += num;
-
-            if(freqs.has(sum)){
+    while(true) {
+        for(const datum of data) {
+            sum += datum;
+            if(freqs.has(sum)) {
                 return sum;
             }
             freqs.add(sum);
